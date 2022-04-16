@@ -1,6 +1,10 @@
 grammar Cmd;
 
 // TOKENS
+fragment SLASH:                  '/';
+fragment COMDOB:                 '"';
+fragment HASHTAG:                '#';
+fragment DASH:                   '-';
 // COMANDOS PRINCIPALES
 TOK_MKDISK:             ('M'|'m')('K'|'k')('D'|'d')('I'|'i')('S'|'s')('K'|'k');
 TOK_RMDISK:             ('R'|'r')('M'|'m')('D'|'d')('I'|'i')('S'|'s')('K'|'k');
@@ -20,21 +24,21 @@ TOK_PAUSE:              ('P'|'p')('A'|'a')('U'|'u')('S'|'s')('E'|'e');
 TOK_REP:                ('R'|'r')('E'|'e')('P'|'p');
 
 // PARAMETROS
-TOK_PATH:               '-'('P'|'p')('A'|'a')('T'|'t')('H'|'h');
-TOK_FIT:                '-'('F'|'f')('I'|'i')('T'|'t');
-TOK_SIZE:               '-'('S'|'s')('I'|'i')('Z'|'z')('E'|'e');
-TOK_UNIT:               '-'('U'|'u')('N'|'n')('I'|'i')('T'|'t');
-TOK_NAME:               '-'('N'|'n')('A'|'a')('M'|'m')('E'|'e');
-TOK_TYPE:               '-'('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
-TOK_ID:                 '-'('I'|'i')('D'|'d');
-TOK_USUARIO:            '-'('U'|'u')('S'|'s')('U'|'u')('A'|'a')('R'|'r')('I'|'i')('O'|'o');
-TOK_PASSWORD:           '-'('P'|'p')('A'|'a')('S'|'s')('S'|'s')('W'|'w')('O'|'o')('R'|'r')('D'|'d');
-TOK_PWD:                '-'('P'|'p')('W'|'w')('D'|'d');
-TOK_CONT:               '-'('C'|'c')('O'|'o')('N'|'n')('T'|'t');
-TOK_GRP:                '-'('G'|'g')('R'|'r')('P'|'p');
-TOK_RUTA:               '-'('R'|'r')('U'|'u')('T'|'t')('A'|'a');
-TOK_R:                  '-'('R'|'r');
-TOK_P:                  '-'('P'|'p');
+TOK_PATH:               DASH('P'|'p')('A'|'a')('T'|'t')('H'|'h');
+TOK_FIT:                DASH('F'|'f')('I'|'i')('T'|'t');
+TOK_SIZE:               DASH('S'|'s')('I'|'i')('Z'|'z')('E'|'e');
+TOK_UNIT:               DASH('U'|'u')('N'|'n')('I'|'i')('T'|'t');
+TOK_NAME:               DASH('N'|'n')('A'|'a')('M'|'m')('E'|'e');
+TOK_TYPE:               DASH('T'|'t')('Y'|'y')('P'|'p')('E'|'e');
+TOK_ID:                 DASH('I'|'i')('D'|'d');
+TOK_USUARIO:            DASH('U'|'u')('S'|'s')('U'|'u')('A'|'a')('R'|'r')('I'|'i')('O'|'o');
+TOK_PASSWORD:           DASH('P'|'p')('A'|'a')('S'|'s')('S'|'s')('W'|'w')('O'|'o')('R'|'r')('D'|'d');
+TOK_PWD:                DASH('P'|'p')('W'|'w')('D'|'d');
+TOK_CONT:               DASH('C'|'c')('O'|'o')('N'|'n')('T'|'t');
+TOK_GRP:                DASH('G'|'g')('R'|'r')('P'|'p');
+TOK_RUTA:               DASH('R'|'r')('U'|'u')('T'|'t')('A'|'a');
+TOK_R:                  DASH('R'|'r');
+TOK_P:                  DASH('P'|'p');
 
 // RESPUESTAS
 TOK_FIRST:              ('F'|'f')('F'|'f');
@@ -48,15 +52,16 @@ TOK_EXTENDIDA:          ('E'|'e');
 TOK_LOGICA:             ('L'|'l');
 TOK_FAST:               ('F'|'f')('A'|'a')('S'|'s')('T'|'t');
 TOK_FULL:               ('F'|'f')('U'|'u')('L'|'l')('L'|'l');
-TOK_CADENA:             ["][^"\n]*["];
+TOK_CADENA:             COMDOB(~([\n]|'"'))*COMDOB;
 TOK_NUMERO:             [0-9]+;
 TOK_IDENTIFICADOR:      [0-9][0-9][0-9][Aa-zZ];
-TOK_CAMINO:             ([/][^\n "]+)+;
+TOK_CAMINO:             (SLASH(~([\n]|'"'|' '))+)+;
 TOK_PALABRA:            [a-zA-Z0-9._-]+;
 
 //SIMBOLOS ESPECIALES
+
 TOK_IGUAL:              [=];
-COMENTARIOS:            [#][^\n]*[\n]? ->skip;
+COMENTARIOS:            HASHTAG~([\n])*[\n]? -> skip;
 WHITESPACE:             [ \r\n\t]+ -> skip;
 
 // PRODUCCIONES
