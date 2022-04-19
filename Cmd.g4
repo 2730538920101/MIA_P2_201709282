@@ -1,10 +1,20 @@
 grammar Cmd;
 
+@header{
+        import "./parser"
+        import "./util"
+        import "./ast"
+        import arrayList "github.com/colegno/arraylist"
+}
+
+
 // TOKENS
 fragment SLASH:                  '/';
 fragment COMDOB:                 '"';
 fragment HASHTAG:                '#';
 fragment DASH:                   '-';
+fragment TOK_IGUAL:              '=';
+
 // COMANDOS PRINCIPALES
 TOK_MKDISK:             ('M'|'m')('K'|'k')('D'|'d')('I'|'i')('S'|'s')('K'|'k');
 TOK_RMDISK:             ('R'|'r')('M'|'m')('D'|'d')('I'|'i')('S'|'s')('K'|'k');
@@ -41,85 +51,90 @@ TOK_R:                  DASH('R'|'r');
 TOK_P:                  DASH('P'|'p');
 
 // RESPUESTAS
+
 TOK_FIRST:              ('F'|'f')('F'|'f');
 TOK_WORST:              ('W'|'w')('F'|'f');
 TOK_BEST:               ('B'|'b')('F'|'f');
-TOK_KB:                 ('K'|'k');
-TOK_MB:                 ('M'|'m');
-TOK_BYTES:              ('B'|'b');
-TOK_PRIMARIA:           ('P'|'p');
-TOK_EXTENDIDA:          ('E'|'e');
-TOK_LOGICA:             ('L'|'l');
+
 TOK_FAST:               ('F'|'f')('A'|'a')('S'|'s')('T'|'t');
 TOK_FULL:               ('F'|'f')('U'|'u')('L'|'l')('L'|'l');
 TOK_CADENA:             COMDOB(~([\n]|'"'))*COMDOB;
-TOK_NUMERO:             [0-9]+;
-TOK_IDENTIFICADOR:      [0-9][0-9][0-9][Aa-zZ];
-TOK_CAMINO:             (SLASH(~([\n]|'"'|' '))+)+;
-TOK_PALABRA:            [a-zA-Z0-9._-]+;
+TOK_NUMERO:             [0..9]+;
+TOK_IDENTIFICADOR:      [0..9][0..9][0..9]([a..z]|[A..Z]);
+TOK_CAMINO:             (SLASH(~([\n]|'"'|' '))*)+;
+TOK_PALABRA:            ([a..z]|[A..Z]|[0..9]|[._-])+;
 
 //SIMBOLOS ESPECIALES
 
-TOK_IGUAL:              [=];
-COMENTARIOS:            HASHTAG~([\n])*[\n]? -> skip;
+
+COMENTARIOS:            HASHTAG~([\n])*[\n]* -> skip;
 WHITESPACE:             [ \r\n\t]+ -> skip;
 
 // PRODUCCIONES
-start : comando EOF;
+start returns [ast.Ast ast] 
+           : comandlist{$ast = ast.NewAst($comandlist.lista)};
 
-comando : comando_estado param_list #AddCommand
-        | com = TOK_PAUSE #Pause
-        | com = TOK_LOGOUT #Logout
-        ;
+comandList returns[*arrayList.List lista] @init{ $lista = arrayList.New()}
+           : AUXCLIST = comandlist comando {
+                        $AUXCLIST.lista.Add($comando.com)
+                        $lista.Add($comando.com)
+                   }
+           | comando {
+                        $lista.Add($comando.com)
+                   }
+           ;
 
-comando_estado : com = TOK_MKDISK #Mkdisk
-               | com = TOK_RMDISK #Rmdisk
-               | com = TOK_FDISK #Fdisk
-               | com = TOK_MOUNT #Mount
-               | com = TOK_MKFS #Mkfs
-               | com = TOK_LOGIN #Login
-               | com = TOK_MKGRP #Mkgrp
-               | com = TOK_RMGRP #Rmgrp
-               | com = TOK_MKUSR #Mkusr
-               | com = TOK_RMUSR #Rmusr
-               | com = TOK_MKFILE #Mkfile
-               | com = TOK_MKDIR #Mkdir
-               | com = TOK_EXEC #Exec
-               | com = TOK_REP #Rep
+comando returns [ast.Command com]
+               :  TOK_MKDISK param_list 
+               |  TOK_RMDISK param_list 
+               |  TOK_FDISK param_list 
+               |  TOK_MOUNT param_list 
+               |  TOK_MKFS param_list 
+               |  TOK_LOGIN param_list 
+               |  TOK_MKGRP param_list 
+               |  TOK_RMGRP param_list 
+               |  TOK_MKUSR param_list 
+               |  TOK_RMUSR param_list 
+               |  TOK_MKFILE param_list 
+               |  TOK_MKDIR param_list 
+               |  TOK_EXEC param_list 
+               |  TOK_REP param_list 
+               |  TOK_PAUSE 
+               |  TOK_LOGOUT  
                ;
 
 param_list : param_list param    
            | param
            ;
 
-param : par = TOK_SIZE TOK_IGUAL res = TOK_NUMERO #Size
-      | par = TOK_PATH TOK_IGUAL res = TOK_CAMINO #Path_R
-      | par = TOK_PATH TOK_IGUAL res = TOK_CADENA #Path_S
-      | par = TOK_FIT TOK_IGUAL res = TOK_FIRST #FitFF
-      | par = TOK_FIT TOK_IGUAL res = TOK_WORST #FitWF
-      | par = TOK_FIT TOK_IGUAL res = TOK_BEST #FitBF
-      | par = TOK_UNIT TOK_IGUAL res = TOK_BYTES #Unit_B
-      | par = TOK_UNIT TOK_IGUAL res = TOK_KB #Unit_K
-      | par = TOK_UNIT TOK_IGUAL res = TOK_MB #Unit_M
-      | par = TOK_NAME TOK_IGUAL res = TOK_PALABRA #Name_P
-      | par = TOK_NAME TOK_IGUAL res = TOK_CADENA #Name_S
-      | par = TOK_USUARIO TOK_IGUAL res = TOK_PALABRA #Usr_P
-      | par = TOK_USUARIO TOK_IGUAL res = TOK_CADENA #Usr_S
-      | par = TOK_GRP TOK_IGUAL res = TOK_PALABRA #Grp_P
-      | par = TOK_GRP TOK_IGUAL res = TOK_CADENA #Grp_S
-      | par = TOK_PASSWORD TOK_IGUAL res = TOK_PALABRA #Pass_P
-      | par = TOK_PWD TOK_IGUAL res = TOK_PALABRA #Pwd_P
-      | par = TOK_TYPE TOK_IGUAL res = TOK_PRIMARIA #Type_P
-      | par = TOK_TYPE TOK_IGUAL res = TOK_LOGICA #Type_L
-      | par = TOK_TYPE TOK_IGUAL res = TOK_EXTENDIDA #Type_E
-      | par = TOK_TYPE TOK_IGUAL res = TOK_FAST #Type_Fast
-      | par = TOK_TYPE TOK_IGUAL res = TOK_FULL #Type_Full
-      | par = TOK_ID TOK_IGUAL res = TOK_IDENTIFICADOR #Id
-      | par = TOK_CONT TOK_IGUAL res = TOK_CADENA #Cont_S
-      | par = TOK_CONT TOK_IGUAL res = TOK_CAMINO #Cont_R
-      | par = TOK_RUTA TOK_IGUAL res = TOK_CADENA #Ruta_S
-      | par = TOK_RUTA TOK_IGUAL res = TOK_CAMINO #Ruta_R
-      | par = TOK_P #Pp
-      | par = TOK_R #Rr
+param :  TOK_SIZE TOK_IGUAL  TOK_NUMERO 
+      |  TOK_PATH TOK_IGUAL  TOK_CAMINO 
+      |  TOK_PATH TOK_IGUAL  TOK_CADENA 
+      |  TOK_FIT TOK_IGUAL  TOK_FIRST 
+      |  TOK_FIT TOK_IGUAL  TOK_WORST 
+      |  TOK_FIT TOK_IGUAL  TOK_BEST 
+      |  TOK_UNIT TOK_IGUAL  TOK_BYTES 
+      |  TOK_UNIT TOK_IGUAL  TOK_KB 
+      |  TOK_UNIT TOK_IGUAL  TOK_MB 
+      |  TOK_NAME TOK_IGUAL  TOK_PALABRA 
+      |  TOK_NAME TOK_IGUAL  TOK_CADENA 
+      |  TOK_USUARIO TOK_IGUAL  TOK_PALABRA 
+      |  TOK_USUARIO TOK_IGUAL  TOK_CADENA 
+      |  TOK_GRP TOK_IGUAL  TOK_PALABRA 
+      |  TOK_GRP TOK_IGUAL  TOK_CADENA 
+      |  TOK_PASSWORD TOK_IGUAL  TOK_PALABRA 
+      |  TOK_PWD TOK_IGUAL  TOK_PALABRA 
+      |  TOK_TYPE TOK_IGUAL  TOK_PRIMARIA 
+      |  TOK_TYPE TOK_IGUAL  TOK_LOGICA 
+      |  TOK_TYPE TOK_IGUAL  TOK_EXTENDIDA 
+      |  TOK_TYPE TOK_IGUAL  TOK_FAST 
+      |  TOK_TYPE TOK_IGUAL  TOK_FULL 
+      |  TOK_ID TOK_IGUAL  TOK_IDENTIFICADOR 
+      |  TOK_CONT TOK_IGUAL  TOK_CADENA 
+      |  TOK_CONT TOK_IGUAL  TOK_CAMINO 
+      |  TOK_RUTA TOK_IGUAL  TOK_CADENA 
+      |  TOK_RUTA TOK_IGUAL  TOK_CAMINO 
+      |  TOK_P 
+      |  TOK_R 
       ;
 
