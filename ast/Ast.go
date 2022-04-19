@@ -7,7 +7,7 @@ type Ast struct{
 }
 
 func NewAst(lista *arrayList.List) Ast{
-	ast := Ast{ComList: lista}
+	ast := Ast{lista}
 	return ast
 
 }

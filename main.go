@@ -16,7 +16,7 @@ import (
 func Analizar(input string){
 	errores := &util.ErrorListener{}
 	is := antlr.NewInputStream(input)
-	lexer := parser.NewCmdLexer(is)
+	lexer := parser.NewCmdLex(is)
 	lexer.RemoveErrorListeners()
 	lexer.AddErrorListener(errores)
 	stream := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
@@ -26,7 +26,7 @@ func Analizar(input string){
 	p.BuildParseTrees = true
 	var listener *util.TreeShapeListener = util.NewTreeShapeListener()
 	if len(errores.Errors)==0 {
-		antlr.ParseTreeWalkerDefault.Walk(&listener, p.Start())
+		antlr.ParseTreeWalkerDefault.Walk(listener, p.Start())
 	}
 	AST := listener.Ast
 	for i := 0; i < AST.ComList.Len(); i++{
