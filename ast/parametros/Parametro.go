@@ -1,4 +1,4 @@
-package ast
+package parametros
 
 type Parametro struct{
 	Valor string

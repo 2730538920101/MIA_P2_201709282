@@ -1,7 +1,9 @@
 // Generated from /home/ec2-user/MIA_P2/Cmd.g4 by ANTLR 4.8
 
         import "../ast"
+        import "../ast/parametros"
         import arrayList "github.com/colegno/arraylist"
+        import "strings"
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -225,6 +227,7 @@ public class CmdParser extends Parser {
 
 	public static class ComandoContext extends ParserRuleContext {
 		public ast.Command com;
+		public Param_listContext param_list;
 		public TerminalNode TOK_MKDISK() { return getToken(CmdParser.TOK_MKDISK, 0); }
 		public Param_listContext param_list() {
 			return getRuleContext(Param_listContext.class,0);
@@ -254,7 +257,7 @@ public class CmdParser extends Parser {
 		ComandoContext _localctx = new ComandoContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_comando);
 		try {
-			setState(56);
+			setState(86);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case TOK_MKDISK:
@@ -263,138 +266,186 @@ public class CmdParser extends Parser {
 				setState(26);
 				match(TOK_MKDISK);
 				setState(27);
-				param_list(0);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkdisk(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_RMDISK:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(28);
+				setState(30);
 				match(TOK_RMDISK);
-				setState(29);
-				param_list(0);
+				setState(31);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewRmdisk(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_FDISK:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(30);
+				setState(34);
 				match(TOK_FDISK);
-				setState(31);
-				param_list(0);
+				setState(35);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewFdisk(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MOUNT:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(32);
+				setState(38);
 				match(TOK_MOUNT);
-				setState(33);
-				param_list(0);
+				setState(39);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMount(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MKFS:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(34);
+				setState(42);
 				match(TOK_MKFS);
-				setState(35);
-				param_list(0);
+				setState(43);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkfs(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_LOGIN:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(36);
+				setState(46);
 				match(TOK_LOGIN);
-				setState(37);
-				param_list(0);
+				setState(47);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewLogin(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MKGRP:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(38);
+				setState(50);
 				match(TOK_MKGRP);
-				setState(39);
-				param_list(0);
+				setState(51);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkgrp(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_RMGRP:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(40);
+				setState(54);
 				match(TOK_RMGRP);
-				setState(41);
-				param_list(0);
+				setState(55);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewRmgrp(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MKUSR:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(42);
+				setState(58);
 				match(TOK_MKUSR);
-				setState(43);
-				param_list(0);
+				setState(59);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkusr(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_RMUSR:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(44);
+				setState(62);
 				match(TOK_RMUSR);
-				setState(45);
-				param_list(0);
+				setState(63);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewRmusr(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MKFILE:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(46);
+				setState(66);
 				match(TOK_MKFILE);
-				setState(47);
-				param_list(0);
+				setState(67);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkfile(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_MKDIR:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(48);
+				setState(70);
 				match(TOK_MKDIR);
-				setState(49);
-				param_list(0);
+				setState(71);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewMkdir(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_EXEC:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(50);
+				setState(74);
 				match(TOK_EXEC);
-				setState(51);
-				param_list(0);
+				setState(75);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewExec(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_REP:
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(52);
+				setState(78);
 				match(TOK_REP);
-				setState(53);
-				param_list(0);
+				setState(79);
+				((ComandoContext)_localctx).param_list = param_list(0);
+
+				                       _localctx.com = ast.NewRep(((ComandoContext)_localctx).param_list.lista)
+				                
 				}
 				break;
 			case TOK_PAUSE:
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(54);
+				setState(82);
 				match(TOK_PAUSE);
+
+				                       _localctx.com = ast.NewPause(true)
+				                
 				}
 				break;
 			case TOK_LOGOUT:
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(55);
+				setState(84);
 				match(TOK_LOGOUT);
+
+				                       _localctx.com = ast.NewLogout(true)
+				                
 				}
 				break;
 			default:
@@ -445,14 +496,14 @@ public class CmdParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(59);
+			setState(89);
 			((Param_listContext)_localctx).param = param();
 
 			                   _localctx.lista.Add(((Param_listContext)_localctx).param.par)
 			                
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(68);
+			setState(98);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -465,9 +516,9 @@ public class CmdParser extends Parser {
 					_localctx.AUXPLIST = _prevctx;
 					_localctx.AUXPLIST = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_param_list);
-					setState(62);
+					setState(92);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(63);
+					setState(93);
 					((Param_listContext)_localctx).param = param();
 
 					                             ((Param_listContext)_localctx).AUXPLIST.lista.Add(((Param_listContext)_localctx).param.par)
@@ -476,7 +527,7 @@ public class CmdParser extends Parser {
 					}
 					} 
 				}
-				setState(70);
+				setState(100);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -494,7 +545,12 @@ public class CmdParser extends Parser {
 	}
 
 	public static class ParamContext extends ParserRuleContext {
-		public ast.Parametro par;
+		public parametros.Parametro par;
+		public Token TOK_NUMERO;
+		public Token TOK_CAMINO;
+		public Token TOK_CADENA;
+		public Token TOK_PALABRA;
+		public Token TOK_IDENTIFICADOR;
 		public TerminalNode TOK_SIZE() { return getToken(CmdParser.TOK_SIZE, 0); }
 		public TerminalNode TOK_IGUAL() { return getToken(CmdParser.TOK_IGUAL, 0); }
 		public TerminalNode TOK_NUMERO() { return getToken(CmdParser.TOK_NUMERO, 0); }
@@ -537,318 +593,411 @@ public class CmdParser extends Parser {
 		ParamContext _localctx = new ParamContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_param);
 		try {
-			setState(154);
+			setState(213);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(71);
+				setState(101);
 				match(TOK_SIZE);
-				setState(72);
+				setState(102);
 				match(TOK_IGUAL);
-				setState(73);
-				match(TOK_NUMERO);
+				setState(103);
+				((ParamContext)_localctx).TOK_NUMERO = match(TOK_NUMERO);
+
+				              _localctx.par = parametros.NewParametro(ast.SIZE, (((ParamContext)_localctx).TOK_NUMERO!=null?((ParamContext)_localctx).TOK_NUMERO.getText():null))
+				        
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(74);
+				setState(105);
 				match(TOK_PATH);
-				setState(75);
+				setState(106);
 				match(TOK_IGUAL);
-				setState(76);
-				match(TOK_CAMINO);
+				setState(107);
+				((ParamContext)_localctx).TOK_CAMINO = match(TOK_CAMINO);
+
+				              _localctx.par = parametros.NewParametro(ast.PATH, (((ParamContext)_localctx).TOK_CAMINO!=null?((ParamContext)_localctx).TOK_CAMINO.getText():null))
+				        
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(77);
+				setState(109);
 				match(TOK_PATH);
-				setState(78);
+				setState(110);
 				match(TOK_IGUAL);
-				setState(79);
-				match(TOK_CADENA);
+				setState(111);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.PATH, str)
+				        
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(80);
+				setState(113);
 				match(TOK_FIT);
-				setState(81);
+				setState(114);
 				match(TOK_IGUAL);
-				setState(82);
+				setState(115);
 				match(TOK_FIRST);
+
+				              _localctx.par = parametros.NewParametro(ast.FIT, ast.FF)
+				        
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(83);
+				setState(117);
 				match(TOK_FIT);
-				setState(84);
+				setState(118);
 				match(TOK_IGUAL);
-				setState(85);
+				setState(119);
 				match(TOK_WORST);
+
+				              _localctx.par = parametros.NewParametro(ast.FIT, ast.WF)
+				        
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(86);
+				setState(121);
 				match(TOK_FIT);
-				setState(87);
+				setState(122);
 				match(TOK_IGUAL);
-				setState(88);
+				setState(123);
 				match(TOK_BEST);
+
+				              _localctx.par = parametros.NewParametro(ast.FIT, ast.BF)
+				        
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(89);
+				setState(125);
 				match(TOK_UNIT);
-				setState(90);
+				setState(126);
 				match(TOK_IGUAL);
-				setState(91);
+				setState(127);
 				match(TOK_BYTES);
+
+				              _localctx.par = parametros.NewParametro(ast.UNIT, ast.B)
+				        
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(92);
+				setState(129);
 				match(TOK_UNIT);
-				setState(93);
+				setState(130);
 				match(TOK_IGUAL);
-				setState(94);
+				setState(131);
 				match(TOK_KB);
+
+				              _localctx.par = parametros.NewParametro(ast.UNIT, ast.K)
+				        
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(95);
+				setState(133);
 				match(TOK_UNIT);
-				setState(96);
+				setState(134);
 				match(TOK_IGUAL);
-				setState(97);
+				setState(135);
 				match(TOK_MB);
+
+				              _localctx.par = parametros.NewParametro(ast.UNIT, ast.M)
+				        
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(98);
+				setState(137);
 				match(TOK_NAME);
-				setState(99);
+				setState(138);
 				match(TOK_IGUAL);
-				setState(100);
-				match(TOK_PALABRA);
+				setState(139);
+				((ParamContext)_localctx).TOK_PALABRA = match(TOK_PALABRA);
+
+				              _localctx.par = parametros.NewParametro(ast.NAME, (((ParamContext)_localctx).TOK_PALABRA!=null?((ParamContext)_localctx).TOK_PALABRA.getText():null))
+				        
 				}
 				break;
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(101);
+				setState(141);
 				match(TOK_NAME);
-				setState(102);
+				setState(142);
 				match(TOK_IGUAL);
-				setState(103);
-				match(TOK_CADENA);
+				setState(143);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.NAME, str)
+				        
 				}
 				break;
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(104);
+				setState(145);
 				match(TOK_USUARIO);
-				setState(105);
+				setState(146);
 				match(TOK_IGUAL);
-				setState(106);
-				match(TOK_PALABRA);
+				setState(147);
+				((ParamContext)_localctx).TOK_PALABRA = match(TOK_PALABRA);
+
+				              _localctx.par = parametros.NewParametro(ast.USUARIO, (((ParamContext)_localctx).TOK_PALABRA!=null?((ParamContext)_localctx).TOK_PALABRA.getText():null))
+				        
 				}
 				break;
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(107);
+				setState(149);
 				match(TOK_USUARIO);
-				setState(108);
+				setState(150);
 				match(TOK_IGUAL);
-				setState(109);
-				match(TOK_CADENA);
+				setState(151);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.USUARIO, str)
+				        
 				}
 				break;
 			case 14:
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(110);
+				setState(153);
 				match(TOK_GRP);
-				setState(111);
+				setState(154);
 				match(TOK_IGUAL);
-				setState(112);
-				match(TOK_PALABRA);
+				setState(155);
+				((ParamContext)_localctx).TOK_PALABRA = match(TOK_PALABRA);
+
+				              _localctx.par = parametros.NewParametro(ast.GRP, (((ParamContext)_localctx).TOK_PALABRA!=null?((ParamContext)_localctx).TOK_PALABRA.getText():null))
+				        
 				}
 				break;
 			case 15:
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(113);
+				setState(157);
 				match(TOK_GRP);
-				setState(114);
+				setState(158);
 				match(TOK_IGUAL);
-				setState(115);
-				match(TOK_CADENA);
+				setState(159);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.GRP, str)
+				        
 				}
 				break;
 			case 16:
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(116);
+				setState(161);
 				match(TOK_PASSWORD);
-				setState(117);
+				setState(162);
 				match(TOK_IGUAL);
-				setState(118);
-				match(TOK_PALABRA);
+				setState(163);
+				((ParamContext)_localctx).TOK_PALABRA = match(TOK_PALABRA);
+
+				              _localctx.par = parametros.NewParametro(ast.PASSWORD, (((ParamContext)_localctx).TOK_PALABRA!=null?((ParamContext)_localctx).TOK_PALABRA.getText():null))
+				        
 				}
 				break;
 			case 17:
 				enterOuterAlt(_localctx, 17);
 				{
-				setState(119);
+				setState(165);
 				match(TOK_PWD);
-				setState(120);
+				setState(166);
 				match(TOK_IGUAL);
-				setState(121);
-				match(TOK_PALABRA);
+				setState(167);
+				((ParamContext)_localctx).TOK_PALABRA = match(TOK_PALABRA);
+
+				              _localctx.par = parametros.NewParametro(ast.PWD, (((ParamContext)_localctx).TOK_PALABRA!=null?((ParamContext)_localctx).TOK_PALABRA.getText():null))
+				        
 				}
 				break;
 			case 18:
 				enterOuterAlt(_localctx, 18);
 				{
-				setState(122);
+				setState(169);
 				match(TOK_TYPE);
-				setState(123);
+				setState(170);
 				match(TOK_IGUAL);
-				setState(124);
+				setState(171);
 				match(TOK_PRIMARIA);
+
+				              _localctx.par = parametros.NewParametro(ast.TYPE, ast.PP)
+				        
 				}
 				break;
 			case 19:
 				enterOuterAlt(_localctx, 19);
 				{
-				setState(125);
+				setState(173);
 				match(TOK_TYPE);
-				setState(126);
+				setState(174);
 				match(TOK_IGUAL);
-				setState(127);
+				setState(175);
 				match(TOK_LOGICA);
+
+				              _localctx.par = parametros.NewParametro(ast.TYPE, ast.L)
+				        
 				}
 				break;
 			case 20:
 				enterOuterAlt(_localctx, 20);
 				{
-				setState(128);
+				setState(177);
 				match(TOK_TYPE);
-				setState(129);
+				setState(178);
 				match(TOK_IGUAL);
-				setState(130);
+				setState(179);
 				match(TOK_EXTENDIDA);
+
+				              _localctx.par = parametros.NewParametro(ast.TYPE, ast.E)
+				        
 				}
 				break;
 			case 21:
 				enterOuterAlt(_localctx, 21);
 				{
-				setState(131);
+				setState(181);
 				match(TOK_TYPE);
-				setState(132);
+				setState(182);
 				match(TOK_IGUAL);
-				setState(133);
+				setState(183);
 				match(TOK_FAST);
+
+				              _localctx.par = parametros.NewParametro(ast.TYPE, ast.FAST)
+				        
 				}
 				break;
 			case 22:
 				enterOuterAlt(_localctx, 22);
 				{
-				setState(134);
+				setState(185);
 				match(TOK_TYPE);
-				setState(135);
+				setState(186);
 				match(TOK_IGUAL);
-				setState(136);
+				setState(187);
 				match(TOK_FULL);
+
+				              _localctx.par = parametros.NewParametro(ast.TYPE, ast.FULL)
+				        
 				}
 				break;
 			case 23:
 				enterOuterAlt(_localctx, 23);
 				{
-				setState(137);
+				setState(189);
 				match(TOK_ID);
-				setState(138);
+				setState(190);
 				match(TOK_IGUAL);
-				setState(139);
-				match(TOK_IDENTIFICADOR);
+				setState(191);
+				((ParamContext)_localctx).TOK_IDENTIFICADOR = match(TOK_IDENTIFICADOR);
+
+				              _localctx.par = parametros.NewParametro(ast.ID, (((ParamContext)_localctx).TOK_IDENTIFICADOR!=null?((ParamContext)_localctx).TOK_IDENTIFICADOR.getText():null))
+				        
 				}
 				break;
 			case 24:
 				enterOuterAlt(_localctx, 24);
 				{
-				setState(140);
+				setState(193);
 				match(TOK_CONT);
-				setState(141);
+				setState(194);
 				match(TOK_IGUAL);
-				setState(142);
-				match(TOK_CADENA);
+				setState(195);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.CONT, str)
+				        
 				}
 				break;
 			case 25:
 				enterOuterAlt(_localctx, 25);
 				{
-				setState(143);
+				setState(197);
 				match(TOK_CONT);
-				setState(144);
+				setState(198);
 				match(TOK_IGUAL);
-				setState(145);
-				match(TOK_CAMINO);
+				setState(199);
+				((ParamContext)_localctx).TOK_CAMINO = match(TOK_CAMINO);
+
+				              _localctx.par = parametros.NewParametro(ast.CONT, (((ParamContext)_localctx).TOK_CAMINO!=null?((ParamContext)_localctx).TOK_CAMINO.getText():null))
+				        
 				}
 				break;
 			case 26:
 				enterOuterAlt(_localctx, 26);
 				{
-				setState(146);
+				setState(201);
 				match(TOK_RUTA);
-				setState(147);
+				setState(202);
 				match(TOK_IGUAL);
-				setState(148);
-				match(TOK_CADENA);
+				setState(203);
+				((ParamContext)_localctx).TOK_CADENA = match(TOK_CADENA);
+
+				              str := strings.Trim((((ParamContext)_localctx).TOK_CADENA!=null?((ParamContext)_localctx).TOK_CADENA.getText():null), "\"")
+				              _localctx.par = parametros.NewParametro(ast.RUTA, str)
+				        
 				}
 				break;
 			case 27:
 				enterOuterAlt(_localctx, 27);
 				{
-				setState(149);
+				setState(205);
 				match(TOK_RUTA);
-				setState(150);
+				setState(206);
 				match(TOK_IGUAL);
-				setState(151);
-				match(TOK_CAMINO);
+				setState(207);
+				((ParamContext)_localctx).TOK_CAMINO = match(TOK_CAMINO);
+
+				              _localctx.par = parametros.NewParametro(ast.RUTA, (((ParamContext)_localctx).TOK_CAMINO!=null?((ParamContext)_localctx).TOK_CAMINO.getText():null))
+				        
 				}
 				break;
 			case 28:
 				enterOuterAlt(_localctx, 28);
 				{
-				setState(152);
+				setState(209);
 				match(TOK_P);
+
+				              _localctx.par = parametros.NewParametro(ast.P, "true")
+				        
 				}
 				break;
 			case 29:
 				enterOuterAlt(_localctx, 29);
 				{
-				setState(153);
+				setState(211);
 				match(TOK_R);
+
+				              _localctx.par = parametros.NewParametro(ast.R, "true")
+				        
 				}
 				break;
 			}
@@ -889,56 +1038,76 @@ public class CmdParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\64\u009f\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\64\u00da\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\7\3\30\n\3\f\3\16\3\33\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\3\4\5\4;\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5E\n\5\f\5\16"+
-		"\5H\13\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4Y"+
+		"\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5c\n\5\f\5\16\5f\13\5\3\6\3\6\3"+
 		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6"+
 		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3"+
 		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6"+
-		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6\u009d"+
-		"\n\6\3\6\2\4\4\b\7\2\4\6\b\n\2\2\2\u00c6\2\f\3\2\2\2\4\17\3\2\2\2\6:\3"+
-		"\2\2\2\b<\3\2\2\2\n\u009c\3\2\2\2\f\r\5\4\3\2\r\16\b\2\1\2\16\3\3\2\2"+
-		"\2\17\20\b\3\1\2\20\21\5\6\4\2\21\22\b\3\1\2\22\31\3\2\2\2\23\24\f\4\2"+
-		"\2\24\25\5\6\4\2\25\26\b\3\1\2\26\30\3\2\2\2\27\23\3\2\2\2\30\33\3\2\2"+
-		"\2\31\27\3\2\2\2\31\32\3\2\2\2\32\5\3\2\2\2\33\31\3\2\2\2\34\35\7\4\2"+
-		"\2\35;\5\b\5\2\36\37\7\5\2\2\37;\5\b\5\2 !\7\6\2\2!;\5\b\5\2\"#\7\7\2"+
-		"\2#;\5\b\5\2$%\7\b\2\2%;\5\b\5\2&\'\7\t\2\2\';\5\b\5\2()\7\13\2\2);\5"+
-		"\b\5\2*+\7\f\2\2+;\5\b\5\2,-\7\r\2\2-;\5\b\5\2./\7\16\2\2/;\5\b\5\2\60"+
-		"\61\7\17\2\2\61;\5\b\5\2\62\63\7\20\2\2\63;\5\b\5\2\64\65\7\21\2\2\65"+
-		";\5\b\5\2\66\67\7\23\2\2\67;\5\b\5\28;\7\22\2\29;\7\n\2\2:\34\3\2\2\2"+
-		":\36\3\2\2\2: \3\2\2\2:\"\3\2\2\2:$\3\2\2\2:&\3\2\2\2:(\3\2\2\2:*\3\2"+
-		"\2\2:,\3\2\2\2:.\3\2\2\2:\60\3\2\2\2:\62\3\2\2\2:\64\3\2\2\2:\66\3\2\2"+
-		"\2:8\3\2\2\2:9\3\2\2\2;\7\3\2\2\2<=\b\5\1\2=>\5\n\6\2>?\b\5\1\2?F\3\2"+
-		"\2\2@A\f\4\2\2AB\5\n\6\2BC\b\5\1\2CE\3\2\2\2D@\3\2\2\2EH\3\2\2\2FD\3\2"+
-		"\2\2FG\3\2\2\2G\t\3\2\2\2HF\3\2\2\2IJ\7\26\2\2JK\7\3\2\2K\u009d\7/\2\2"+
-		"LM\7\24\2\2MN\7\3\2\2N\u009d\7\61\2\2OP\7\24\2\2PQ\7\3\2\2Q\u009d\7.\2"+
-		"\2RS\7\25\2\2ST\7\3\2\2T\u009d\7)\2\2UV\7\25\2\2VW\7\3\2\2W\u009d\7*\2"+
-		"\2XY\7\25\2\2YZ\7\3\2\2Z\u009d\7+\2\2[\\\7\27\2\2\\]\7\3\2\2]\u009d\7"+
-		"%\2\2^_\7\27\2\2_`\7\3\2\2`\u009d\7#\2\2ab\7\27\2\2bc\7\3\2\2c\u009d\7"+
-		"$\2\2de\7\30\2\2ef\7\3\2\2f\u009d\7\62\2\2gh\7\30\2\2hi\7\3\2\2i\u009d"+
-		"\7.\2\2jk\7\33\2\2kl\7\3\2\2l\u009d\7\62\2\2mn\7\33\2\2no\7\3\2\2o\u009d"+
-		"\7.\2\2pq\7\37\2\2qr\7\3\2\2r\u009d\7\62\2\2st\7\37\2\2tu\7\3\2\2u\u009d"+
-		"\7.\2\2vw\7\34\2\2wx\7\3\2\2x\u009d\7\62\2\2yz\7\35\2\2z{\7\3\2\2{\u009d"+
-		"\7\62\2\2|}\7\31\2\2}~\7\3\2\2~\u009d\7&\2\2\177\u0080\7\31\2\2\u0080"+
-		"\u0081\7\3\2\2\u0081\u009d\7(\2\2\u0082\u0083\7\31\2\2\u0083\u0084\7\3"+
-		"\2\2\u0084\u009d\7\'\2\2\u0085\u0086\7\31\2\2\u0086\u0087\7\3\2\2\u0087"+
-		"\u009d\7,\2\2\u0088\u0089\7\31\2\2\u0089\u008a\7\3\2\2\u008a\u009d\7-"+
-		"\2\2\u008b\u008c\7\32\2\2\u008c\u008d\7\3\2\2\u008d\u009d\7\60\2\2\u008e"+
-		"\u008f\7\36\2\2\u008f\u0090\7\3\2\2\u0090\u009d\7.\2\2\u0091\u0092\7\36"+
-		"\2\2\u0092\u0093\7\3\2\2\u0093\u009d\7\61\2\2\u0094\u0095\7 \2\2\u0095"+
-		"\u0096\7\3\2\2\u0096\u009d\7.\2\2\u0097\u0098\7 \2\2\u0098\u0099\7\3\2"+
-		"\2\u0099\u009d\7\61\2\2\u009a\u009d\7\"\2\2\u009b\u009d\7!\2\2\u009cI"+
-		"\3\2\2\2\u009cL\3\2\2\2\u009cO\3\2\2\2\u009cR\3\2\2\2\u009cU\3\2\2\2\u009c"+
-		"X\3\2\2\2\u009c[\3\2\2\2\u009c^\3\2\2\2\u009ca\3\2\2\2\u009cd\3\2\2\2"+
-		"\u009cg\3\2\2\2\u009cj\3\2\2\2\u009cm\3\2\2\2\u009cp\3\2\2\2\u009cs\3"+
-		"\2\2\2\u009cv\3\2\2\2\u009cy\3\2\2\2\u009c|\3\2\2\2\u009c\177\3\2\2\2"+
-		"\u009c\u0082\3\2\2\2\u009c\u0085\3\2\2\2\u009c\u0088\3\2\2\2\u009c\u008b"+
-		"\3\2\2\2\u009c\u008e\3\2\2\2\u009c\u0091\3\2\2\2\u009c\u0094\3\2\2\2\u009c"+
-		"\u0097\3\2\2\2\u009c\u009a\3\2\2\2\u009c\u009b\3\2\2\2\u009d\13\3\2\2"+
-		"\2\6\31:F\u009c";
+		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\5\6\u00d8\n\6\3\6\2\4\4\b\7\2\4\6\b\n\2\2\2\u0101\2"+
+		"\f\3\2\2\2\4\17\3\2\2\2\6X\3\2\2\2\bZ\3\2\2\2\n\u00d7\3\2\2\2\f\r\5\4"+
+		"\3\2\r\16\b\2\1\2\16\3\3\2\2\2\17\20\b\3\1\2\20\21\5\6\4\2\21\22\b\3\1"+
+		"\2\22\31\3\2\2\2\23\24\f\4\2\2\24\25\5\6\4\2\25\26\b\3\1\2\26\30\3\2\2"+
+		"\2\27\23\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\5\3\2\2"+
+		"\2\33\31\3\2\2\2\34\35\7\4\2\2\35\36\5\b\5\2\36\37\b\4\1\2\37Y\3\2\2\2"+
+		" !\7\5\2\2!\"\5\b\5\2\"#\b\4\1\2#Y\3\2\2\2$%\7\6\2\2%&\5\b\5\2&\'\b\4"+
+		"\1\2\'Y\3\2\2\2()\7\7\2\2)*\5\b\5\2*+\b\4\1\2+Y\3\2\2\2,-\7\b\2\2-.\5"+
+		"\b\5\2./\b\4\1\2/Y\3\2\2\2\60\61\7\t\2\2\61\62\5\b\5\2\62\63\b\4\1\2\63"+
+		"Y\3\2\2\2\64\65\7\13\2\2\65\66\5\b\5\2\66\67\b\4\1\2\67Y\3\2\2\289\7\f"+
+		"\2\29:\5\b\5\2:;\b\4\1\2;Y\3\2\2\2<=\7\r\2\2=>\5\b\5\2>?\b\4\1\2?Y\3\2"+
+		"\2\2@A\7\16\2\2AB\5\b\5\2BC\b\4\1\2CY\3\2\2\2DE\7\17\2\2EF\5\b\5\2FG\b"+
+		"\4\1\2GY\3\2\2\2HI\7\20\2\2IJ\5\b\5\2JK\b\4\1\2KY\3\2\2\2LM\7\21\2\2M"+
+		"N\5\b\5\2NO\b\4\1\2OY\3\2\2\2PQ\7\23\2\2QR\5\b\5\2RS\b\4\1\2SY\3\2\2\2"+
+		"TU\7\22\2\2UY\b\4\1\2VW\7\n\2\2WY\b\4\1\2X\34\3\2\2\2X \3\2\2\2X$\3\2"+
+		"\2\2X(\3\2\2\2X,\3\2\2\2X\60\3\2\2\2X\64\3\2\2\2X8\3\2\2\2X<\3\2\2\2X"+
+		"@\3\2\2\2XD\3\2\2\2XH\3\2\2\2XL\3\2\2\2XP\3\2\2\2XT\3\2\2\2XV\3\2\2\2"+
+		"Y\7\3\2\2\2Z[\b\5\1\2[\\\5\n\6\2\\]\b\5\1\2]d\3\2\2\2^_\f\4\2\2_`\5\n"+
+		"\6\2`a\b\5\1\2ac\3\2\2\2b^\3\2\2\2cf\3\2\2\2db\3\2\2\2de\3\2\2\2e\t\3"+
+		"\2\2\2fd\3\2\2\2gh\7\26\2\2hi\7\3\2\2ij\7/\2\2j\u00d8\b\6\1\2kl\7\24\2"+
+		"\2lm\7\3\2\2mn\7\61\2\2n\u00d8\b\6\1\2op\7\24\2\2pq\7\3\2\2qr\7.\2\2r"+
+		"\u00d8\b\6\1\2st\7\25\2\2tu\7\3\2\2uv\7)\2\2v\u00d8\b\6\1\2wx\7\25\2\2"+
+		"xy\7\3\2\2yz\7*\2\2z\u00d8\b\6\1\2{|\7\25\2\2|}\7\3\2\2}~\7+\2\2~\u00d8"+
+		"\b\6\1\2\177\u0080\7\27\2\2\u0080\u0081\7\3\2\2\u0081\u0082\7%\2\2\u0082"+
+		"\u00d8\b\6\1\2\u0083\u0084\7\27\2\2\u0084\u0085\7\3\2\2\u0085\u0086\7"+
+		"#\2\2\u0086\u00d8\b\6\1\2\u0087\u0088\7\27\2\2\u0088\u0089\7\3\2\2\u0089"+
+		"\u008a\7$\2\2\u008a\u00d8\b\6\1\2\u008b\u008c\7\30\2\2\u008c\u008d\7\3"+
+		"\2\2\u008d\u008e\7\62\2\2\u008e\u00d8\b\6\1\2\u008f\u0090\7\30\2\2\u0090"+
+		"\u0091\7\3\2\2\u0091\u0092\7.\2\2\u0092\u00d8\b\6\1\2\u0093\u0094\7\33"+
+		"\2\2\u0094\u0095\7\3\2\2\u0095\u0096\7\62\2\2\u0096\u00d8\b\6\1\2\u0097"+
+		"\u0098\7\33\2\2\u0098\u0099\7\3\2\2\u0099\u009a\7.\2\2\u009a\u00d8\b\6"+
+		"\1\2\u009b\u009c\7\37\2\2\u009c\u009d\7\3\2\2\u009d\u009e\7\62\2\2\u009e"+
+		"\u00d8\b\6\1\2\u009f\u00a0\7\37\2\2\u00a0\u00a1\7\3\2\2\u00a1\u00a2\7"+
+		".\2\2\u00a2\u00d8\b\6\1\2\u00a3\u00a4\7\34\2\2\u00a4\u00a5\7\3\2\2\u00a5"+
+		"\u00a6\7\62\2\2\u00a6\u00d8\b\6\1\2\u00a7\u00a8\7\35\2\2\u00a8\u00a9\7"+
+		"\3\2\2\u00a9\u00aa\7\62\2\2\u00aa\u00d8\b\6\1\2\u00ab\u00ac\7\31\2\2\u00ac"+
+		"\u00ad\7\3\2\2\u00ad\u00ae\7&\2\2\u00ae\u00d8\b\6\1\2\u00af\u00b0\7\31"+
+		"\2\2\u00b0\u00b1\7\3\2\2\u00b1\u00b2\7(\2\2\u00b2\u00d8\b\6\1\2\u00b3"+
+		"\u00b4\7\31\2\2\u00b4\u00b5\7\3\2\2\u00b5\u00b6\7\'\2\2\u00b6\u00d8\b"+
+		"\6\1\2\u00b7\u00b8\7\31\2\2\u00b8\u00b9\7\3\2\2\u00b9\u00ba\7,\2\2\u00ba"+
+		"\u00d8\b\6\1\2\u00bb\u00bc\7\31\2\2\u00bc\u00bd\7\3\2\2\u00bd\u00be\7"+
+		"-\2\2\u00be\u00d8\b\6\1\2\u00bf\u00c0\7\32\2\2\u00c0\u00c1\7\3\2\2\u00c1"+
+		"\u00c2\7\60\2\2\u00c2\u00d8\b\6\1\2\u00c3\u00c4\7\36\2\2\u00c4\u00c5\7"+
+		"\3\2\2\u00c5\u00c6\7.\2\2\u00c6\u00d8\b\6\1\2\u00c7\u00c8\7\36\2\2\u00c8"+
+		"\u00c9\7\3\2\2\u00c9\u00ca\7\61\2\2\u00ca\u00d8\b\6\1\2\u00cb\u00cc\7"+
+		" \2\2\u00cc\u00cd\7\3\2\2\u00cd\u00ce\7.\2\2\u00ce\u00d8\b\6\1\2\u00cf"+
+		"\u00d0\7 \2\2\u00d0\u00d1\7\3\2\2\u00d1\u00d2\7\61\2\2\u00d2\u00d8\b\6"+
+		"\1\2\u00d3\u00d4\7\"\2\2\u00d4\u00d8\b\6\1\2\u00d5\u00d6\7!\2\2\u00d6"+
+		"\u00d8\b\6\1\2\u00d7g\3\2\2\2\u00d7k\3\2\2\2\u00d7o\3\2\2\2\u00d7s\3\2"+
+		"\2\2\u00d7w\3\2\2\2\u00d7{\3\2\2\2\u00d7\177\3\2\2\2\u00d7\u0083\3\2\2"+
+		"\2\u00d7\u0087\3\2\2\2\u00d7\u008b\3\2\2\2\u00d7\u008f\3\2\2\2\u00d7\u0093"+
+		"\3\2\2\2\u00d7\u0097\3\2\2\2\u00d7\u009b\3\2\2\2\u00d7\u009f\3\2\2\2\u00d7"+
+		"\u00a3\3\2\2\2\u00d7\u00a7\3\2\2\2\u00d7\u00ab\3\2\2\2\u00d7\u00af\3\2"+
+		"\2\2\u00d7\u00b3\3\2\2\2\u00d7\u00b7\3\2\2\2\u00d7\u00bb\3\2\2\2\u00d7"+
+		"\u00bf\3\2\2\2\u00d7\u00c3\3\2\2\2\u00d7\u00c7\3\2\2\2\u00d7\u00cb\3\2"+
+		"\2\2\u00d7\u00cf\3\2\2\2\u00d7\u00d3\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d8"+
+		"\13\3\2\2\2\6\31Xd\u00d7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
