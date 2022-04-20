@@ -13,7 +13,7 @@ options {
 
 // PRODUCCIONES
 start returns [ast.Ast ast] 
-           : comandList{$ast = ast.NewAst($comandList.lista)};
+           : comandList{$ast = ast.NewAst($comandList.lista)} EOF;
 
 comandList returns[*arrayList.List lista] @init{ $lista = arrayList.New()}
            : AUXCLIST = comandList comando {
