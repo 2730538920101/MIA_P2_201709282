@@ -3,7 +3,9 @@ package ast
 import (
 	"./parametros"
 	"fmt"
+    "os"
 	arrayList "github.com/colegno/arraylist"
+	
 )
 
 type Exec struct{
@@ -27,5 +29,18 @@ func NewExec(lista *arrayList.List) Exec {
 
 func (d Exec) Ejecutar() interface{}{
 	fmt.Println("EJECUTANDO EXEC... ")
+	if archivoExiste(d.path){
+		fmt.Println("SI EXISTE EL ARCHIVO")
+		return d.path
+	}else{
+		fmt.Println("NO EXISTE EL ARCHIVO")
+	}
 	return nil
+}
+
+func archivoExiste(ruta string) bool {
+	if _, err := os.Stat(ruta); os.IsNotExist(err) {
+		return false
+	}
+	return true
 }

@@ -2,7 +2,22 @@ package util
 
 import (
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"../ast"
+	"../parser"
 )
+
+type TreeShapeListener struct {
+	*parser.BaseCmdListener
+	Ast ast.Ast
+}
+
+func NewTreeShapeListener() *TreeShapeListener{
+	return new(TreeShapeListener)
+}
+
+func (this *TreeShapeListener) ExitStart(ctx *parser.StartContext){
+	this.Ast = ctx.GetAst()
+}
 
 type ErrorSintactico struct{
 	line, column int 

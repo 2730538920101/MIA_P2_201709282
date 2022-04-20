@@ -2,6 +2,9 @@ package ast
 
 import(
 	"fmt"
+	"bufio"
+	"os"
+
 )
 
 type Pause struct {
@@ -14,6 +17,7 @@ func NewPause(p bool) Pause{
 }
 
 func (d Pause) Ejecutar() interface{} {
-	fmt.Println("EJECUTANDO PAUSE...")
+	fmt.Println("EJECUTANDO PAUSE PRESIONA ENTENER PARA SALIR...")
+	bufio.NewReader(os.Stdin).ReadBytes('\n')
 	return nil
 }
