@@ -7,6 +7,10 @@ import (
 	arrayList "github.com/colegno/arraylist"
 	"../funciones"
 	"os"
+	"math/rand"
+	"time"
+	"./structs"
+	"io"
 )
 
 type Mkdisk struct{
@@ -50,7 +54,6 @@ func (d Mkdisk) Ejecutar() interface{}{
 	a := funciones.TamByte(d.unit, d.size)
 	fmt.Println(a)
 	funciones.CrearCarpetaDisco(d.path)
-	lim := 0
 	block := make([]byte, a)
 	for j := 0; j < a; j++{
 		block[j] = 0
@@ -59,15 +62,41 @@ func (d Mkdisk) Ejecutar() interface{}{
 	if err != nil{
 		fmt.Println(err)
 	}
-	for lim < a{
-		_, err := disco.Write(block)
-		if err != nil{
-			fmt.Println(err)
-		}
-		lim++
+	disco.Write(block)
+	disco.Close()
+	
+	//MBR
+	tam := strconv.Itoa(a)
+	tiemp := time.Now().Format("2006-01-02 15:04:05")
+	rnd := strconv.Itoa(rand.Intn(501))
+	ft := d.fit
+	mbr := structs.NewMBR(tam, tiemp, rnd, ft)
+	disco, err = os.OpenFile(string(d.path), os.O_RDWR, 0777)
+	if err != nil{
+		fmt.Println("ERROR AL ABRIR EL ARCHIVO...")
 	}
+	newpos, err := disco.Seek(int64(0), os.SEEK_SET)
+	if err != nil {
+		fmt.Println("ERROR AL ABRIR EL ARCHIVO...")
+	}
+	mbrByte := funciones.Struct_to_bytes(mbr)
+	
+	_, _ = disco.WriteAt(mbrByte, newpos)
+	
+	lectura := make([]byte, a)
+	_, err = disco.ReadAt(lectura, int64(0))
+		if err != nil && err != io.EOF {
+			fmt.Println("ERROR AL LEER EL ARCHIVO...")
+		}
+	str := funciones.Bytes_to_struct(lectura)
+	fmt.Printf("TAMANO: %s\n",str.Mbr_tamano)
+	fmt.Printf("FECHA DE CREACION: %s\n",str.Mbr_fecha_creacion)
+	fmt.Printf("SIGNATURE: %s\n",str.Mbr_disk_signature)
+	fmt.Printf("FIT: %s\n",str.Disk_fit)
 	disco.Close()
 	return nil
+
+
 }
 
 

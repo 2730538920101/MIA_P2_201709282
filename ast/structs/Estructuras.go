@@ -1,74 +1,95 @@
 package structs
 
 type MasterBootRecord struct{
-	mbr_tamano []byte 
-	mbr_fecha_creacion []byte
-	mbr_disk_signature []byte
-	disk_fit []byte
-	mbr_partition_1 Partition 
-	mbr_partition_2 Partition
-	mbr_partition_3 Partition
-	mbr_partition_4 Partition
+	Mbr_tamano [100]byte 
+	Mbr_fecha_creacion [100]byte
+	Mbr_disk_signature [100]byte
+	Disk_fit [100]byte
+	Mbr_partition_1 Partition 
+	Mbr_partition_2 Partition
+	Mbr_partition_3 Partition
+	Mbr_partition_4 Partition
+}
+
+func NewMBR(tam, date, sign, ft string) MasterBootRecord {
+	e := MasterBootRecord{}
+	copy(e.Mbr_tamano[:], tam)
+	copy(e.Mbr_fecha_creacion[:], date)
+	copy(e.Mbr_disk_signature[:], sign)
+	copy(e.Disk_fit[:], ft)
+	return e
 }
 
 type Partition struct{
-	part_status []byte
-	part_type []byte
-	part_fit []byte
-	part_start []byte
-	part_size []byte
-	part_name []byte
+	Part_status []byte
+	Part_type []byte
+	Part_fit []byte
+	Part_start []byte
+	Part_size []byte
+	Part_name []byte
+}
+
+func NewPartition(stat, tipo, ft, st, tam, nom string) Partition{
+	e := Partition{}
+	copy(e.Part_status[:], stat)
+	copy(e.Part_type[:], tipo)
+	copy(e.Part_fit[:], ft)
+	copy(e.Part_start[:], st)
+	copy(e.Part_size[:], tam)
+	copy(e.Part_name[:], nom)
+	return e
 }
 
 type ExtendedBootRecord struct{
-	part_status []byte
-	part_fit []byte
-	part_start []byte
-	part_size []byte
-	part_next []byte
-	part_name []byte
+	Part_status []byte
+	Part_fit []byte
+	Part_start []byte
+	Part_size []byte
+	Part_next []byte
+	Part_name []byte
 }
 
 type SuperBlock struct{
-	s_filesystem_type []byte
-	s_inodes_count []byte
-	s_blocks_count []byte
-	s_free_blocks_count []byte
-	s_free_inodes_count []byte
-	s_mtime []byte
-	s_mnt_count []byte
-	s_magic []byte
-	s_inode_size []byte
-	s_block_size []byte
-	s_first_ino []byte
-	s_first_blo []byte
-	s_bm_inode_start []byte
-	s_bm_block_start []byte
-	s_inode_start []byte
-	s_block_start []byte
+	S_filesystem_type []byte
+	S_inodes_count []byte
+	S_blocks_count []byte
+	S_free_blocks_count []byte
+	S_free_inodes_count []byte
+	S_mtime []byte
+	S_mnt_count []byte
+	S_magic []byte
+	S_inode_size []byte
+	S_block_size []byte
+	S_first_ino []byte
+	S_first_blo []byte
+	S_bm_inode_start []byte
+	S_bm_block_start []byte
+	S_inode_start []byte
+	S_block_start []byte
 }
 
 type TablaInodos struct{
-	i_uid []byte
-	i_gid []byte
-	i_size []byte
-	i_atime []byte
-	i_ctime []byte
-	i_mtime []byte
-	i_block []byte
-	i_type []byte
-	i_perm []byte
+	I_uid []byte
+	I_gid []byte
+	I_size []byte
+	I_atime []byte
+	I_ctime []byte
+	I_mtime []byte
+	I_block []byte
+	I_type []byte
+	I_perm []byte
 }
 
 type BlockDirectory struct{
-	b_content [4]Content
+	B_content [4]Content
 }
 
 type Content struct{
-	b_name []byte
-	b_inodo []byte
+	B_name []byte
+	B_inodo []byte
 }
 
 type BlockFile struct{
-	b_content []byte
+	B_content []byte
 }
+

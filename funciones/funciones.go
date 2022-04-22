@@ -3,6 +3,11 @@ package funciones
 import (
 	"strings"
 	"os"
+	"bytes"
+	"encoding/gob"
+	"io"
+	"fmt"
+	"../ast/structs"
 )
 
 func TamByte(unidad string, tam int) int{
@@ -19,11 +24,8 @@ func TamByte(unidad string, tam int) int{
 			{
 				return tam * (1024*1024)
 			}
-		default:
-			{
-				return tam * (1024*1024)
-			}
 	}
+	return 0
 }
 
 func CrearCarpetaDisco(rut string){
@@ -43,4 +45,31 @@ func CrearCarpetaDisco(rut string){
 			}
 		}
 	}
+}
+
+func Struct_to_bytes(p interface{})[]byte{
+	buf := bytes.Buffer{}
+	enc := gob.NewEncoder(&buf)
+	err := enc.Encode(p)
+	if err != nil && err == io.EOF {
+		fmt.Println("ERROR DE CONVERSION DE STRUCT A BYTE... ")
+	}
+	return buf.Bytes()
+}
+
+func Bytes_to_struct(s []byte) structs.MasterBootRecord {
+	p := structs.MasterBootRecord{}
+	dec := gob.NewDecoder(bytes.NewReader(s))
+	err := dec.Decode(&p)
+	if err != nil && err != io.EOF {
+		fmt.Println("ERROR DE CONVERSION DE BYTE A STRUCT... ")
+	}
+	return p
+}
+
+func ArchivoExiste(ruta string) bool{
+	if _, err := os.Stat(ruta);os.IsNotExist(err){
+		return false
+	}
+	return true
 }
