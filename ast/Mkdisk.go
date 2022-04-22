@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"strconv"
 	arrayList "github.com/colegno/arraylist"
+	"../funciones"
+	"os"
 )
 
 type Mkdisk struct{
@@ -34,11 +36,40 @@ func NewMkdisk(lista *arrayList.List) Mkdisk {
 			aux.size = 0
 			break
 		}
-	}
+	} 
 	return aux
 }
 
 func (d Mkdisk) Ejecutar() interface{}{
 	fmt.Println("EJECUTANDO MKDISK... ")
+	if d.size <= 0{
+		fmt.Println("EL PARAMETRO SIZE ES OBLIGATORIO Y DEBE SER MAYOR QUE CERO...")
+	}else if d.path == ""{
+		fmt.Println("EL PARAMETRO PATH ES OBLIGATORIO Y DEBE SER UNA RUTA VALIDA")
+	}
+	a := funciones.TamByte(d.unit, d.size)
+	fmt.Println(a)
+	funciones.CrearCarpetaDisco(d.path)
+	lim := 0
+	block := make([]byte, a)
+	for j := 0; j < a; j++{
+		block[j] = 0
+	}
+	disco, err := os.Create(d.path)
+	if err != nil{
+		fmt.Println(err)
+	}
+	for lim < a{
+		_, err := disco.Write(block)
+		if err != nil{
+			fmt.Println(err)
+		}
+		lim++
+	}
+	disco.Close()
 	return nil
 }
+
+
+
+
