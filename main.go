@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"./analizador"
-	
+	"./funciones"
 )
 func main(){
 	fmt.Println("BIENVENIDO AL SISTEMA DE ARCHIVOS, PROYECTO 2 MIA 1S2022")
@@ -27,6 +27,10 @@ func main(){
 						cmd := exec.Command("clear")
 						cmd.Stdout = os.Stdout
 						cmd.Run()
+					}
+				case "showm\n":
+					{
+						funciones.ShowMounts()
 					}
 				default:
 					{
