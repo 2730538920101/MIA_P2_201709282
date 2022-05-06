@@ -9,7 +9,7 @@ import (
 	"os"
 	"./structs"
 	"bytes"
-
+	//"unsafe"
 
 )
 
@@ -141,7 +141,8 @@ func (d Fdisk) Ejecutar() interface{}{
 						}else{
 							disk.Mbr_partition[i] = part
 							funciones.EscribirMBR(d.path, &disk)
-						
+							//inx := inicio + int(unsafe.Sizeof(eb))
+							//funciones.LlenarCeros(a,inx, d.path )
 						}		
 					}else{
 						fmt.Println("ERROR AL CREAR LA PARTICION")
@@ -154,24 +155,28 @@ func (d Fdisk) Ejecutar() interface{}{
 		case L:
 			{
 				fmt.Println("SE CREARA UNA PARTICION LOGICA")
+				var l structs.ExtendedBootRecord 
+				var st string = string(bytes.Trim(part.Part_start[:],"\x00"))
 				if inicio > 0{
 					if ValidarExtendida(&disk, flag_ext){
-						stat := string(bytes.Trim(part.Part_status[:],"\x00"))
-						ft := string(bytes.Trim(part.Part_fit[:],"\x00"))
-						st := string(bytes.Trim(part.Part_start[:],"\x00"))
-						stst, _ := strconv.Atoi(st)
-						tam := string(bytes.Trim(part.Part_size[:],"\x00"))
-						nom := string(bytes.Trim(part.Part_name[:],"\x00"))
-						l := structs.NewEBR(stat, ft, st, tam, "-1", nom)
-						funciones.EscribirEBR(d.path, &l, stst)	
 						if (eb != structs.ExtendedBootRecord{}){
 							copy(eb.Part_next[:], st)
 							st2 := string(bytes.Trim(eb.Part_start[:],"\x00"))
 							stst2, _ := strconv.Atoi(st2)
 							funciones.EscribirEBR(d.path, &eb, stst2)
+						}else{
+							stat := string(bytes.Trim(part.Part_status[:],"\x00"))
+							ft := string(bytes.Trim(part.Part_fit[:],"\x00"))
+							
+							stst, _ := strconv.Atoi(st)
+							tam := string(bytes.Trim(part.Part_size[:],"\x00"))
+							nom := string(bytes.Trim(part.Part_name[:],"\x00"))
+							l = structs.NewEBR(stat, ft, st, tam, "-1", nom)
+							funciones.EscribirEBR(d.path, &l, stst)	
 						}
 						dkst, _ := strconv.Atoi(string(bytes.Trim(disk.Mbr_partition[i].Part_start[:], "\x00")))
-						funciones.LeerEBR(d.path, int(t), dkst)
+						funciones.LeerEBR(d.path, len(funciones.Struct_to_bytes(l)), dkst)
+						
 					}else{
 						fmt.Println("NO EXISTE UNA PARTICION EXTENDIDA EN EL DISCO")
 						return nil
@@ -182,12 +187,7 @@ func (d Fdisk) Ejecutar() interface{}{
 				break
 			}
 	}
-	fi2, err := os.Stat(d.path)
-	if err != nil{
-		fmt.Println("ERROR AL DETERMINAR EL TAMAÑO DEL ARCHIVO")
-	}
-	p := fi2.Size()
-	funciones.LeerMBR(d.path, int(p))
+	funciones.LeerMBR(d.path, len(funciones.Struct_to_bytes(disk)))
 	return nil
 }
 

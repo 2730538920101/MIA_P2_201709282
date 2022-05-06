@@ -39,6 +39,10 @@ func NewMount(lista *arrayList.List) Mount {
 
 func (d Mount) Ejecutar() interface{}{
 	fmt.Println("EJECUTANDO MOUNT... ")
+	if d.path == "" || d.name == ""{
+		fmt.Println("LOS PARAMETROS PATH Y NAME SON OBLIGATORIOS EN EL COMANDO MOUNT")
+		return nil
+	}
 	var cont int = 0
 	var flag bool = false
 	for (globales.Disk_mont[cont] != structs.DiscosMontados{}){

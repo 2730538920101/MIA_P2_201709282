@@ -72,12 +72,8 @@ func (d Mkdisk) Ejecutar() interface{}{
 	ft := d.fit
 	mbr := structs.NewMBR(tam, tiemp, rnd, ft)
 	funciones.EscribirMBR(d.path, &mbr)
-	fi, err := os.Stat(d.path)
-	if err != nil{
-		fmt.Println("ERROR AL DETERMINAR EL TAMAÑO DEL ARCHIVO")
-	}
-	t := fi.Size()
-	funciones.LeerMBR(d.path, int(t))
+	res := funciones.Struct_to_bytes(mbr)
+	funciones.LeerMBR(d.path, len(res))
 	return nil
 
 
