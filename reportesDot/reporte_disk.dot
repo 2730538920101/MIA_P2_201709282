@@ -2,7 +2,7 @@ digraph G {
 parent[shape = plaintext label=<
 <table border='1' cellborder='1'>
 <tr>
-<td rowspan = "2" bgcolor ="#dd8703"> MBR <br/> TAMAÑO: 104857600<td/>
+<td rowspan = "2" bgcolor ="#dd8703"> MBR <br/> TAMAÑO: 104857600</td>
 <td rowspan = "2" bgcolor ="#50b104">P<br/> TAMAÑO: 102400<br/> PORCENTAJE: 0.098% </td>
 <td rowspan = "2" bgcolor ="#50b104">E<br/> TAMAÑO: 204800<br/> PORCENTAJE: 0.2% </td>
 <td rowspan = "2" bgcolor ="#50b104">P<br/> TAMAÑO: 307200<br/> PORCENTAJE: 0.29% </td>

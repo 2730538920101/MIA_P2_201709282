@@ -123,7 +123,7 @@ func CrearReporteDisk(t1, t2, t3, t4, tt, p1, p2, p3, p4, tp1, tp2, tp3, tp4, tl
 	archivo +=	"<tr>\n"
 	archivo += "<td rowspan = \"2\" bgcolor =\"#dd8703\"> MBR <br/> TAMAÑO: "
 	archivo += tt
-	archivo += "<td/>\n"
+	archivo += "</td>\n"
 	archivo += "<td rowspan = \"2\" bgcolor =\"#50b104\">"
 	archivo += tp1 
 	archivo += "<br/> TAMAÑO: "
